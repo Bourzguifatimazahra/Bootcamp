@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Inventory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Car Inventory App</h1>
+    <button onclick="findFirstHonda()">Find First Honda</button>
+    <button onclick="sortCarsByYear()">Sort by Year</button>
+    <div id="result"></div>
+    <table id="carTable">
+        <tr>
+            <th>ID</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+        </tr>
+    </table>
+
+    <script>
+        const inventory = [
+            { id: 1, car_make: "Lincoln", car_model: "Navigator", car_year: 2009 },
+            { id: 2, car_make: "Mazda", car_model: "Miata MX-5", car_year: 2001 },
+            { id: 3, car_make: "Honda", car_model: "Accord", car_year: 1983 },
+            { id: 4, car_make: "Land Rover", car_model: "Defender Ice Edition", car_year: 2010 },
+            { id: 5, car_make: "Honda", car_model: "Accord", car_year: 1995 },
+        ];
+
+        function displayCars(cars) {
+            const table = document.getElementById("carTable");
+            table.innerHTML = "<tr><th>ID</th><th>Make</th><th>Model</th><th>Year</th></tr>";
+            cars.forEach(car => {
+                const row = `<tr><td>${car.id}</td><td>${car.car_make}</td><td>${car.car_model}</td><td>${car.car_year}</td></tr>`;
+                table.innerHTML += row;
+            });
+        }
+
+        function findFirstHonda() {
+            const honda = inventory.find(car => car.car_make === "Honda");
+            document.getElementById("result").innerHTML = `This is a ${honda.car_make} ${honda.car_model} from ${honda.car_year}`;
+        }
+
+        function sortCarsByYear() {
+            const sorted = [...inventory].sort((a, b) => a.car_year - b.car_year);
+            displayCars(sorted);
+        }
+
+        displayCars(inventory);
+    </script>
+</body>
+</html>

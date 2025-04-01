@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Guessing Game</title>
+  <style>
+    .color-swatch { width: 100px; height: 100px; display: inline-block; margin: 10px; cursor: pointer; }
+    .message { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Guess the Color</h1>
+  <div id="color-display"></div>
+  <div id="choices"></div>
+  <div class="message" id="message"></div>
+
+  <script>
+    let correctColor = '';
+    const difficulty = 'easy'; // Change to 'medium' or 'hard' for other difficulty levels
+
+    function generateColor() {
+      const r = Math.floor(Math.random() * 256);
+      const g = Math.floor(Math.random() * 256);
+      const b = Math.floor(Math.random() * 256);
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    function createChoices() {
+      const choicesContainer = document.getElementById('choices');
+      choicesContainer.innerHTML = '';
+      
+      const numChoices = difficulty === 'easy' ? 3 : difficulty === 'medium' ? 6 : 1;
+      const colors = Array.from({ length: numChoices }, () => generateColor());
+
+      correctColor = colors[Math.floor(Math.random() * colors.length)];
+      document.getElementById('color-display').style.backgroundColor = correctColor;
+
+      colors.forEach(color => {
+        const swatch = document.createElement('div');
+        swatch.className = 'color-swatch';
+        swatch.style.backgroundColor = color;
+        swatch.onclick = () => checkGuess(color);
+        choicesContainer.appendChild(swatch);
+      });
+    }
+
+    function checkGuess(guess) {
+      const message = document.getElementById('message');
+      if (guess === correctColor) {
+        message.textContent = 'Correct! Well done!';
+      } else {
+        message.textContent = 'Wrong! Try again.';
+      }
+      setTimeout(createChoices, 2000);
+    }
+
+    createChoices();
+  </script>
+</body>
+</html>

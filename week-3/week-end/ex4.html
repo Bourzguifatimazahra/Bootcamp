@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whack-a-Mole</title>
+  <style>
+    .grid { display: grid; grid-template-columns: repeat(5, 100px); grid-gap: 10px; }
+    .mole { width: 100px; height: 100px; background-color: brown; text-align: center; font-size: 2em; line-height: 100px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Whack-a-Mole Game</h1>
+  <div id="grid" class="grid"></div>
+  <h2>Score: <span id="score">0</span></h2>
+
+  <script>
+    const grid = document.getElementById('grid');
+    let score = 0;
+    let moles = [];
+    
+    // Create grid
+    for (let i = 0; i < 25; i++) {
+      const mole = document.createElement('div');
+      mole.className = 'mole';
+      mole.onclick = () => whackMole(i);
+      grid.appendChild(mole);
+      moles.push(mole);
+    }
+
+    function randomMole() {
+      const randomIndex = Math.floor(Math.random() * moles.length);
+      moles[randomIndex].textContent = '👾';
+    }
+
+    function whackMole(index) {
+      if (moles[index].textContent === '👾') {
+        score++;
+        document.getElementById('score').textContent = score;
+        moles[index].textContent = '';
+      }
+    }
+
+    // Game loop
+    setInterval(() => {
+      moles.forEach(mole => mole.textContent = ''); // Clear all moles
+      randomMole(); // Show a new mole
+    }, 1000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Calculator</title>
+  <style>
+    .button { padding: 20px; width: 50px; margin: 5px; cursor: pointer; }
+    #display { font-size: 2em; text-align: right; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Calculator</h1>
+  <div id="display">0</div>
+  <div>
+    <button class="button" onclick="addToDisplay('7')">7</button>
+    <button class="button" onclick="addToDisplay('8')">8</button>
+    <button class="button" onclick="addToDisplay('9')">9</button>
+    <button class="button" onclick="addToDisplay('+')">+</button>
+  </div>
+  <div>
+    <button class="button" onclick="addToDisplay('4')">4</button>
+    <button class="button" onclick="addToDisplay('5')">5</button>
+    <button class="button" onclick="addToDisplay('6')">6</button>
+    <button class="button" onclick="addToDisplay('-')">-</button>
+  </div>
+  <div>
+    <button class="button" onclick="addToDisplay('1')">1</button>
+    <button class="button" onclick="addToDisplay('2')">2</button>
+    <button class="button" onclick="addToDisplay('3')">3</button>
+    <button class="button" onclick="addToDisplay('*')">*</button>
+  </div>
+  <div>
+    <button class="button" onclick="addToDisplay('0')">0</button>
+    <button class="button" onclick="clearDisplay()">C</button>
+    <button class="button" onclick="calculate()">=</button>
+    <button class="button" onclick="addToDisplay('/')">/</button>
+  </div>
+
+  <script>
+    let displayValue = '';
+
+    function addToDisplay(value) {
+      displayValue += value;
+      document.getElementById('display').textContent = displayValue;
+    }
+
+    function clearDisplay() {
+      displayValue = '';
+      document.getElementById('display').textContent = '0';
+    }
+
+    function calculate() {
+      try {
+        displayValue = eval(displayValue).toString();
+        document.getElementById('display').textContent = displayValue;
+      } catch (error) {
+        document.getElementById('display').textContent = 'Error';
+      }
+    }
+  </script>
+</body>
+</html>

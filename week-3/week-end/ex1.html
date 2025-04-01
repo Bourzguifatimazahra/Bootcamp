@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Todo List</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    #todo-list { list-style-type: none; padding: 0; }
+    .todo-item { display: flex; justify-content: space-between; margin: 5px 0; }
+    .completed { text-decoration: line-through; }
+    .btn { padding: 5px 10px; margin: 5px; cursor: pointer; }
+    .btn.disabled { background-color: #ddd; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <h1>Todo List</h1>
+  <input type="text" id="todo-input" placeholder="Add a new todo">
+  <button class="btn" onclick="addTodo()">Add Todo</button>
+  <ul id="todo-list"></ul>
+  <button id="remove-all-btn" class="btn" onclick="removeAllTodos()" disabled>Remove All</button>
+  
+  <script>
+    let todos = [];
+
+    function addTodo() {
+      const input = document.getElementById('todo-input');
+      const todoText = input.value.trim();
+      if (todoText === '') return;
+
+      todos.push({ text: todoText, completed: false });
+      input.value = '';
+      renderTodos();
+    }
+
+    function renderTodos() {
+      const list = document.getElementById('todo-list');
+      list.innerHTML = '';
+
+      todos.forEach((todo, index) => {
+        const li = document.createElement('li');
+        li.className = 'todo-item';
+        
+        const span = document.createElement('span');
+        span.className = todo.completed ? 'completed' : '';
+        span.textContent = todo.text;
+        span.onclick = () => toggleCompletion(index);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.onclick = () => removeTodo(index);
+
+        li.appendChild(span);
+        li.appendChild(deleteBtn);
+        list.appendChild(li);
+      });
+
+      document.getElementById('remove-all-btn').disabled = todos.length === 0;
+    }
+
+    function toggleCompletion(index) {
+      todos[index].completed = !todos[index].completed;
+      renderTodos();
+    }
+
+    function removeTodo(index) {
+      todos.splice(index, 1);
+      renderTodos();
+    }
+
+    function removeAllTodos() {
+      todos = [];
+      renderTodos();
+    }
+  </script>
+</body>
+</html>

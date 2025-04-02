@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Résultat du formulaire</title>
+</head>
+<body>
+    <h2>Données envoyées</h2>
+    <section id="resultat"></section>
+
+    <script>
+        // Récupérer les paramètres de l'URL
+        const params = new URLSearchParams(window.location.search);
+        const nom = params.get("nom");
+        const prenom = params.get("prenom");
+
+        // Afficher les données dans la balise section
+        const resultatSection = document.getElementById("resultat");
+        resultatSection.innerHTML = `<p>Nom : ${nom}</p><p>Prénom : ${prenom}</p>`;
+    </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Citations Aléatoires</title>
+    <style>
+        /* Style global */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #2980b9;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #34495e;
+            margin-bottom: 20px;
+        }
+
+        /* Style du formulaire */
+        input[type="text"] {
+            padding: 12px;
+            margin: 10px;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #2980b9;
+            outline: none;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 24px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Style de la citation */
+        .quote-container {
+            background-color: #fff;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 80%;
+            text-align: left;
+        }
+
+        .quote-text {
+            font-size: 1.5rem;
+            color: #34495e;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .quote-author {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            text-align: right;
+        }
+
+        .quote-likes {
+            font-size: 1.1rem;
+            color: #27ae60;
+        }
+
+        /* Style pour les statistiques */
+        #stats {
+            font-size: 1.1rem;
+            color: #e67e22;
+            margin-top: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .quote-container {
+                padding: 20px;
+                margin: 10px;
+                width: 90%;
+            }
+
+            input[type="text"], button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Générateur de Citations Aléatoires</h1>
+    
+    <!-- Affichage de la citation -->
+    <div id="quoteSection" class="quote-container">
+        <p id="quoteText" class="quote-text">"La vie est ce que l'on en fait."</p>
+        <p id="quoteAuthor" class="quote-author">- Inconnu</p>
+        <p id="quoteLikes" class="quote-likes">J'aime : 0</p>
+    </div>
+
+    <button onclick="generateQuote()">Générer une citation</button>
+    <button onclick="likeQuote()">J'aime</button>
+
+    <h2>Ajouter une nouvelle citation</h2>
+    <input type="text" id="newQuote" placeholder="Nouvelle citation">
+    <input type="text" id="newAuthor" placeholder="Auteur">
+    <button onclick="addQuote()">Ajouter</button>
+
+    <h2>Statistiques de la citation</h2>
+    <button onclick="countCharacters(true)">Nombre de caractères (espaces inclus)</button>
+    <button onclick="countCharacters(false)">Nombre de caractères (sans espaces)</button>
+    <button onclick="countWords()">Nombre de mots</button>
+    <p id="stats"></p>
+
+    <h2>Filtrer les citations par auteur</h2>
+    <input type="text" id="authorFilter" placeholder="Auteur">
+    <button onclick="filterQuotes()">Filtrer</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

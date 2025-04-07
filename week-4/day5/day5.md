@@ -1,3 +1,4 @@
+
 # Vérificateur d'Anagrammes
 
 Un programme JavaScript qui vérifie si deux chaînes de caractères sont des anagrammes l'une de l'autre.

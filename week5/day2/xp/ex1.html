@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Giphy API - Hilarious GIFs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f0f0f0;
+    }
+    #gif-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .gif {
+      width: 200px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <h1>😂 GIFs "Hilarious" depuis Giphy</h1>
+  <div id="gif-container"></div>
+
+  <script>
+    const gifContainer = document.getElementById('gif-container');
+
+    fetch("https://api.giphy.com/v1/gifs/search?q=hilarious&rating=g&api_key=hpvZycW22qCjn5cRM1xtWB8NKq4dQ2My")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Erreur: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        const gifs = data.data;
+
+        gifs.forEach(gif => {
+          const img = document.createElement('img');
+          img.src = gif.images.fixed_height.url;
+          img.alt = gif.title;
+          img.className = 'gif';
+          gifContainer.appendChild(img);
+        });
+      })
+      .catch(error => {
+        gifContainer.innerHTML = `<p style="color:red;">Erreur lors du chargement : ${error.message}</p>`;
+        console.error("Erreur attrapée :", error);
+      });
+  </script>
+</body>
+</html>

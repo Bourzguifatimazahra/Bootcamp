@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunrise Times</title>
+</head>
+<body>
+    <h1>Get Sunrise Time</h1>
+    
+    <form id="locationForm">
+        <h3>Paris Coordinates</h3>
+        <input type="number" id="lat1" value="48.864716" required placeholder="Latitude" step="any">
+        <input type="number" id="lon1" value="2.349014" required placeholder="Longitude" step="any">
+        
+        <h3>New York Coordinates</h3>
+        <input type="number" id="lat2" value="40.730610" required placeholder="Latitude" step="any">
+        <input type="number" id="lon2" value="-73.935242" required placeholder="Longitude" step="any">
+        
+        <button type="submit">Get Sunrise Times</button>
+    </form>
+
+    <h2>Sunrise Times:</h2>
+    <div id="sunriseResults"></div>
+
+    <script>
+        document.getElementById('locationForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const lat1 = document.getElementById('lat1').value;
+            const lon1 = document.getElementById('lon1').value;
+            const lat2 = document.getElementById('lat2').value;
+            const lon2 = document.getElementById('lon2').value;
+
+            const apiUrl = "https://api.sunrise-sunset.org/json?formatted=0";
+
+            const getSunriseTime = async (lat, lon) => {
+                try {
+                    const response = await fetch(`${apiUrl}&lat=${lat}&lng=${lon}`);
+                    const data = await response.json();
+                    if (data.status === 'OK') {
+                        return new Date(data.results.sunrise).toLocaleTimeString();
+                    } else {
+                        throw new Error("Unable to fetch sunrise data.");
+                    }
+                } catch (error) {
+                    console.error('Error fetching sunrise data:', error);
+                    return "Error retrieving time";
+                }
+            };
+
+            try {
+                const [parisSunrise, newYorkSunrise] = await Promise.all([
+                    getSunriseTime(lat1, lon1),
+                    getSunriseTime(lat2, lon2)
+                ]);
+
+                document.getElementById('sunriseResults').innerHTML = `
+                    <p>Paris Sunrise: ${parisSunrise}</p>
+                    <p>New York Sunrise: ${newYorkSunrise}</p>
+                `;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('sunriseResults').textContent = 'An error occurred while fetching sunrise times.';
+            }
+        });
+    </script>
+</body>
+</html>

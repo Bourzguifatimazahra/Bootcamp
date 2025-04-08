@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Giphy Search</title>
+</head>
+<body>
+    <h1>Recherche Giphy</h1>
+    <form id="gifForm">
+        <input type="text" id="searchInput" placeholder="Tapez un mot-clé (ex: chat)" required>
+        <button type="submit">Chercher</button>
+    </form>
+    <button id="deleteBtn">Supprimer tous les GIFs</button>
+    <div id="gifContainer"></div>
+
+    <script>
+        const form = document.getElementById('gifForm');
+        const gifContainer = document.getElementById('gifContainer');
+        const deleteBtn = document.getElementById('deleteBtn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const searchTerm = document.getElementById('searchInput').value;
+            const apiKey = "hpvZycW22qCjn5cRM1xtWB8NKq4dQ2My";
+            const url = `https://api.giphy.com/v1/gifs/search?q=${searchTerm}&limit=5&api_key=${apiKey}`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error("Erreur de requête API");
+                const data = await response.json();
+                data.data.forEach(gif => {
+                    const img = document.createElement("img");
+                    img.src = gif.images.original.url;
+                    gifContainer.appendChild(img);
+                });
+            } catch (error) {
+                console.log("Erreur attrapée :", error);
+            }
+        });
+
+        deleteBtn.addEventListener("click", () => {
+            gifContainer.innerHTML = "";
+        });
+    </script>
+</body>
+</html>

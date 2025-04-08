@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Giphy Daily Challenge</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; }
+    form, button { margin: 1rem; }
+    .gif-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+    .gif-card { border: 1px solid #ccc; padding: 1rem; border-radius: 10px; background: #f9f9f9; }
+    img { max-width: 200px; height: auto; }
+  </style>
+</head>
+<body>
+
+  <h1>Search for a GIF</h1>
+
+  <form id="gifForm">
+    <input type="text" id="category" placeholder="Enter category (e.g. cat, sun)" required>
+    <button type="submit">Search GIF</button>
+  </form>
+
+  <button id="deleteAllBtn">DELETE ALL</button>
+
+  <div class="gif-container" id="gifContainer"></div>
+
+  <script src="app.js"></script>
+
+</body>
+</html>

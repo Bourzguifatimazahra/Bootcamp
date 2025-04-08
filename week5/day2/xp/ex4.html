@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recherche de GIFs avec Giphy</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 250px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      border: none;
+      background-color: #3498db;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+
+    #loader {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 30px auto;
+      display: none;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #gif-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .gif {
+      width: 200px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎬 Rechercher des GIFs avec Giphy</h1>
+
+  <input type="text" id="search-input" placeholder="Ex: cat, sun, dance..." />
+  <button onclick="searchGifs()">Rechercher</button>
+
+  <div id="loader"></div>
+  <div id="gif-container"></div>
+
+  <script>
+    const input = document.getElementById('search-input');
+    const gifContainer = document.getElementById('gif-container');
+    const loader = document.getElementById('loader');
+
+    async function searchGifs() {
+      const query = input.value.trim();
+      if (query === '') {
+        alert("🔍 Veuillez entrer un mot-clé !");
+        return;
+      }
+
+      gifContainer.innerHTML = '';
+      loader.style.display = 'block';
+
+      const apiKey = 'hpvZycW22qCjn5cRM1xtWB8NKq4dQ2My';
+      const url = `https://api.giphy.com/v1/gifs/search?q=${encodeURIComponent(query)}&limit=10&rating=g&api_key=${apiKey}`;
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Erreur : ${response.status}`);
+        }
+
+        const data = await response.json();
+        loader.style.display = 'none';
+
+        if (data.data.length === 0) {
+          gifContainer.innerHTML = `<p>Aucun GIF trouvé pour "${query}" 😢</p>`;
+          return;
+        }
+
+        data.data.forEach(gif => {
+          const img = document.createElement('img');
+          img.src = gif.images.fixed_height.url;
+          img.alt = gif.title;
+          img.className = 'gif';
+          gifContainer.appendChild(img);
+        });
+
+      } catch (error) {
+        loader.style.display = 'none';
+        gifContainer.innerHTML = `<p style="color: red;">Erreur lors du chargement : ${error.message}</p>`;
+        console.error("Erreur attrapée :", error);
+      }
+    }
+  </script>
+
+</body>
+</html>

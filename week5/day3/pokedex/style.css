@@ -1,0 +1,58 @@
+/* style.css */
+
+/* Animation PlayStation-style */
+@keyframes playstation-animation {
+  0% {
+    background-position: 100% 100%;
+  }
+  50% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+/* Add the dynamic gradient background */
+body {
+  background: linear-gradient(45deg, #ff5c8d, #6a82fb, #fc7a6f);
+  background-size: 400% 400%;
+  animation: playstation-animation 10s ease infinite;
+  color: white;
+}
+
+.poke-img {
+  transition: transform 0.4s ease;
+}
+
+.poke-img.scale-up {
+  transform: scale(1.2);
+}
+
+/* Add custom styles for the Pokedex card */
+.card {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.card .text-danger {
+  color: #f27c4c !important;
+}
+
+/* Custom Input Styles */
+input {
+  font-size: 18px;
+  padding: 12px 20px;
+  border-radius: 50px;
+  border: none;
+}
+
+button {
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #ff5c8d;
+}

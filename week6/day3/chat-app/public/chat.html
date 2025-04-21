@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chat Room</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="chat-container">
+    <aside>
+      <h3>Utilisateurs actifs</h3>
+      <ul id="users"></ul>
+    </aside>
+    <main>
+      <div id="chat-box"></div>
+      <form id="chat-form">
+        <input id="msg" type="text" placeholder="Tapez un message" required autocomplete="off" />
+        <button type="submit">Envoyer</button>
+      </form>
+    </main>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="chat.js"></script>
+</body>
+</html>

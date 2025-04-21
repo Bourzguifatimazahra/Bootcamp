@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strategy Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div id="auth-section">
+      <h1>Strategy Game</h1>
+      <div id="login-form">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button id="login-btn">Login</button>
+        <button id="register-btn">Register</button>
+      </div>
+    </div>
+    
+    <div id="game-section" style="display: none;">
+      <div id="game-info">
+        <h2 id="game-status">Waiting for opponent...</h2>
+        <p id="current-player"></p>
+      </div>
+      
+      <div id="game-board"></div>
+      
+      <div id="controls">
+        <button id="up-btn">↑</button><br>
+        <button id="left-btn">←</button>
+        <button id="down-btn">↓</button>
+        <button id="right-btn">→</button>
+      </div>
+      
+      <button id="new-game-btn">New Game</button>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>

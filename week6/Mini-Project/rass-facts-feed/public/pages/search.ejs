@@ -1,0 +1,50 @@
+<%- include('../partials/head') %>
+<body>
+    <%- include('../partials/header') %>
+    
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Search by Title</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="/search/title" method="POST">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" name="title" placeholder="Enter title keyword">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Search by Category</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="/search/category" method="POST">
+                            <div class="mb-3">
+                                <select class="form-select" name="category">
+                                    <option value="Animals">Animals</option>
+                                    <option value="Science">Science</option>
+                                    <option value="History">History</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Food">Food</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <%- include('../partials/posts') %>
+    <%- include('../partials/footer') %>
+</body>
+</html>
